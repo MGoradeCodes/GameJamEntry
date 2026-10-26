@@ -2,8 +2,11 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
-  tags: []
+  serializedVersion: 3
+  tags:
+  - Danger
+  - MovingPlatform
+  - Memory Shard
   layers:
   - Default
   - TransparentFX
@@ -11,7 +14,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - ground
   - 
   - 
   - 
@@ -41,3 +44,23 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3789683585
+    locked: 0
+  - name: Decor
+    uniqueID: 4222041583
+    locked: 0
+  - name: Level
+    uniqueID: 3389868357
+    locked: 0
+  - name: Collectibles
+    uniqueID: 3924069137
+    locked: 0
+  - name: Player
+    uniqueID: 180624079
+    locked: 0
+  - name: Foreground
+    uniqueID: 1928961743
+    locked: 0
+  m_RenderingLayers:
+  - Default

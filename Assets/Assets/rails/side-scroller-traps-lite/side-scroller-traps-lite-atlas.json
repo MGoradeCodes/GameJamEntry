@@ -1,0 +1,300 @@
+{
+  "name": "Side-Scroller Traps Lite",
+  "tile": 16,
+  "image": "side-scroller-traps-lite-sheet.png",
+  "size": {
+    "w": 128,
+    "h": 128
+  },
+  "frames": {
+    "saw_16_0": {
+      "x": 0,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "saw_16_1": {
+      "x": 16,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "saw_16_2": {
+      "x": 32,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "saw_16_3": {
+      "x": 48,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "rail_h": {
+      "x": 64,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "rail_end_right": {
+      "x": 80,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "rail_end_left": {
+      "x": 96,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "spikes_up": {
+      "x": 112,
+      "y": 0,
+      "w": 16,
+      "h": 16
+    },
+    "spikes_right": {
+      "x": 0,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    "spikes_down": {
+      "x": 16,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    "spikes_left": {
+      "x": 32,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    "crumble_platform": {
+      "x": 48,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    "crumble_platform_break_0": {
+      "x": 64,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    "crumble_platform_break_1": {
+      "x": 80,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    "crumble_platform_break_2": {
+      "x": 96,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    "crumble_platform_break_3": {
+      "x": 112,
+      "y": 16,
+      "w": 16,
+      "h": 16
+    },
+    "crumble_platform_break_4": {
+      "x": 0,
+      "y": 32,
+      "w": 16,
+      "h": 16
+    },
+    "spring": {
+      "x": 16,
+      "y": 32,
+      "w": 16,
+      "h": 16
+    },
+    "spring_bounce_0": {
+      "x": 32,
+      "y": 32,
+      "w": 16,
+      "h": 16
+    },
+    "spring_bounce_1": {
+      "x": 48,
+      "y": 32,
+      "w": 16,
+      "h": 16
+    },
+    "spring_bounce_2": {
+      "x": 64,
+      "y": 32,
+      "w": 16,
+      "h": 16
+    },
+    "spring_bounce_3": {
+      "x": 80,
+      "y": 32,
+      "w": 16,
+      "h": 16
+    },
+    "spring_bounce_4": {
+      "x": 96,
+      "y": 32,
+      "w": 16,
+      "h": 16
+    },
+    "spring_bounce_5": {
+      "x": 112,
+      "y": 32,
+      "w": 16,
+      "h": 16
+    },
+    "key_gold": {
+      "x": 0,
+      "y": 48,
+      "w": 16,
+      "h": 16
+    },
+    "checkpoint_off": {
+      "x": 16,
+      "y": 48,
+      "w": 16,
+      "h": 32
+    },
+    "checkpoint_raise_0": {
+      "x": 32,
+      "y": 48,
+      "w": 16,
+      "h": 32
+    },
+    "checkpoint_raise_1": {
+      "x": 48,
+      "y": 48,
+      "w": 16,
+      "h": 32
+    },
+    "checkpoint_raise_2": {
+      "x": 64,
+      "y": 48,
+      "w": 16,
+      "h": 32
+    },
+    "checkpoint_raise_3": {
+      "x": 80,
+      "y": 48,
+      "w": 16,
+      "h": 32
+    },
+    "checkpoint_on_0": {
+      "x": 96,
+      "y": 48,
+      "w": 16,
+      "h": 32
+    },
+    "checkpoint_on_1": {
+      "x": 112,
+      "y": 48,
+      "w": 16,
+      "h": 32
+    },
+    "checkpoint_on_2": {
+      "x": 0,
+      "y": 80,
+      "w": 16,
+      "h": 32
+    },
+    "checkpoint_on_3": {
+      "x": 16,
+      "y": 80,
+      "w": 16,
+      "h": 32
+    },
+    "coin": {
+      "x": 32,
+      "y": 80,
+      "w": 16,
+      "h": 16
+    },
+    "coin_spin_0": {
+      "x": 48,
+      "y": 80,
+      "w": 16,
+      "h": 16
+    },
+    "coin_spin_1": {
+      "x": 64,
+      "y": 80,
+      "w": 16,
+      "h": 16
+    },
+    "coin_spin_2": {
+      "x": 80,
+      "y": 80,
+      "w": 16,
+      "h": 16
+    },
+    "coin_spin_3": {
+      "x": 96,
+      "y": 80,
+      "w": 16,
+      "h": 16
+    },
+    "coin_spin_4": {
+      "x": 112,
+      "y": 80,
+      "w": 16,
+      "h": 16
+    },
+    "coin_spin_5": {
+      "x": 0,
+      "y": 112,
+      "w": 16,
+      "h": 16
+    }
+  },
+  "animations": {
+    "saw_16": [
+      "saw_16_0",
+      "saw_16_1",
+      "saw_16_2",
+      "saw_16_3"
+    ],
+    "crumble_platform_break": [
+      "crumble_platform_break_0",
+      "crumble_platform_break_1",
+      "crumble_platform_break_2",
+      "crumble_platform_break_3",
+      "crumble_platform_break_4"
+    ],
+    "spring_bounce": [
+      "spring_bounce_0",
+      "spring_bounce_1",
+      "spring_bounce_2",
+      "spring_bounce_3",
+      "spring_bounce_4",
+      "spring_bounce_5"
+    ],
+    "checkpoint_raise": [
+      "checkpoint_raise_0",
+      "checkpoint_raise_1",
+      "checkpoint_raise_2",
+      "checkpoint_raise_3"
+    ],
+    "checkpoint_on": [
+      "checkpoint_on_0",
+      "checkpoint_on_1",
+      "checkpoint_on_2",
+      "checkpoint_on_3"
+    ],
+    "coin_spin": [
+      "coin_spin_0",
+      "coin_spin_1",
+      "coin_spin_2",
+      "coin_spin_3",
+      "coin_spin_4",
+      "coin_spin_5"
+    ]
+  }
+}
