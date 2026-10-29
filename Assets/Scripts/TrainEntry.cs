@@ -3,7 +3,7 @@ using UnityEngine;
 public class TrainEntry : MonoBehaviour
 {
     [SerializeField] private Vector3 startPos;
-    private Vector3 endPos = new Vector3(-10, -0.5f, 0);
+    private Vector3 endPos = new Vector3(-23, -0.5f, 0);
     [SerializeField] private float speed = 1.0f; 
     
     private float elapsedTime = 0f;

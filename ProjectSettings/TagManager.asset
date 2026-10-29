@@ -7,6 +7,8 @@ TagManager:
   - Danger
   - MovingPlatform
   - Memory Shard
+  - Backpack
+  - underground area
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - Water
   - UI
   - ground
-  - 
+  - Danger
   - 
   - 
   - 

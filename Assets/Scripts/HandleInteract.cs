@@ -14,34 +14,44 @@ public class HandleInteract : MonoBehaviour
 
     [SerializeField] private GameObject prompt;
 
-    [SerializeField] private MentalStability bar;
+    private MentalStability bar;
 
     [SerializeField] private Movement player;
 
-    [SerializeField] private TextMeshProUGUI ShardText;
+    private TextMeshProUGUI ShardText;
 
     private Vector3 newPos;
 
     private bool inRange;
+    private bool backpack;
 
-    private int shardCount = 0;
+    private static int shardCount = 0;
 
-    // Store the shard the player is currently touching
     private GameObject currentShard = null;
+    private HandleBackpack currentBackpackScript = null;
 
     void Start()
     {
+        bar = Object.FindAnyObjectByType<MentalStability>();
+        
+        GameObject shardTextObj = GameObject.Find("ShardText");
+        if (shardTextObj != null)
+        {
+            ShardText = shardTextObj.GetComponent<TextMeshProUGUI>();
+        }
+
         if (Circle != null) Circle.fillAmount = 0f;
         if (prompt != null) 
         {
-            prompt.SetActive(false); 
+            prompt.SetActive(false);
         }
+
+        UpdateShardCountDisplay();
     }
 
     void Update()
     {
-        // Only allow holding "E" if the player is actually standing next to a shard
-        if (currentShard != null)
+        if (currentShard != null || (inRange && backpack))
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -75,11 +85,10 @@ public class HandleInteract : MonoBehaviour
         if (currentShard != null)
         {
             shardCount++;
-            ShardText.text = "Shard Count : " + shardCount;
+            UpdateShardCountDisplay(); 
+
             newPos = currentShard.transform.position;
             player.SetSpawn(newPos);
-            
-            bar.increaseBar(15.0f);
             
             if (ps != null)
             {
@@ -94,7 +103,15 @@ public class HandleInteract : MonoBehaviour
             
             currentShard = null; 
         }
-        
+
+        if (backpack)
+        {
+            if (currentBackpackScript != null)
+            {
+                currentBackpackScript.TriggerBackpackAction();
+            }
+        }
+    
         ResetHolding();
     }
 
@@ -111,6 +128,17 @@ public class HandleInteract : MonoBehaviour
         {
             inRange = true;
             currentShard = collision.gameObject;
+            if (prompt != null) 
+            {
+                prompt.SetActive(true);
+            }
+        }
+
+        if (collision.gameObject.CompareTag("Backpack"))
+        {
+            inRange = true;
+            backpack = true;
+            currentBackpackScript = collision.GetComponent<HandleBackpack>();
             if (prompt != null) 
             {
                 prompt.SetActive(true);
@@ -134,6 +162,40 @@ public class HandleInteract : MonoBehaviour
                 prompt.SetActive(false);
             }
             ResetHolding();
+        }
+        if (collision.gameObject.CompareTag("Backpack"))
+        {
+            inRange = false;
+            backpack = false;
+            currentBackpackScript = null;
+            if (prompt != null) 
+            {
+                prompt.SetActive(false);
+            }
+            ResetHolding();
+        }
+    }
+
+    public void ShardCountIncrement(int val)
+    {
+        shardCount += val;
+        if (bar != null)
+        {
+            bar.increaseBar(15.0f);
+        }
+        UpdateShardCountDisplay();
+    }
+
+    public int getShardCount()
+    {
+        return shardCount;
+    }
+
+    private void UpdateShardCountDisplay()
+    {
+        if (ShardText != null)
+        {
+            ShardText.text = "Shard Count : " + shardCount;
         }
     }
 }

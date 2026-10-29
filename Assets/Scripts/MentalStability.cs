@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,7 @@ public class MentalStability : MonoBehaviour
 
     [SerializeField] private Image fillImage;
     private float targetValue;
+    
 
     void Start()
     {
@@ -18,8 +20,7 @@ public class MentalStability : MonoBehaviour
     {
         if (slider.value != targetValue)
         {
-            // 10f controls the speed of the interpolation (higher = faster)
-            slider.value = Mathf.Lerp(slider.value, targetValue, Time.deltaTime * 10f);
+            slider.value = Mathf.Lerp(slider.value, targetValue, Time.deltaTime * 8f);
         }
         
         if(slider.value <= 75)

@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -20,28 +21,50 @@ public class Movement : MonoBehaviour
 
     [SerializeField] private Animator animator;
 
+    private CinemachineImpulseSource impulseSource;
+
     private Rigidbody2D rb;
 
-    [SerializeField] private Volume volume;
+    private Volume volume;
     private Vignette vignette;
 
     private float horizontalInput;
 
-    public MentalStability bar; 
+    private MentalStability bar; 
 
-    [SerializeField] private Vector3 spawnPoint = new Vector3(-6, 0, 0);
+    private Vector3 spawnPoint;
 
     private bool death;
 
     private bool isGrounded;
+
+    private bool enterUnderground;
 
     private bool gameOver;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        volume.profile.TryGet(out vignette);
-        vignette.intensity.value = 0.5f;
+        impulseSource = GetComponent<CinemachineImpulseSource>();
+        GameObject volumeObj = GameObject.Find("Global Volume"); 
+        if (volumeObj != null)
+        {
+            volume = volumeObj.GetComponent<Volume>();
+        }
+
+        Debug.Log(spawnPoint);
+
+        bar = Object.FindAnyObjectByType<MentalStability>();
+
+        if (volume != null)
+        {
+            volume.profile.TryGet(out vignette);
+            if (vignette != null)
+            {
+                vignette.intensity.value = 0.5f;
+            }
+        }
+        
         Reset();
     }
 
@@ -59,7 +82,7 @@ public class Movement : MonoBehaviour
             animator.SetBool("isRunning", false);
         }
         
-        if (transform.position.y < -5 && !death)
+        if (transform.position.y < -20 && !death)
         {
             StartCoroutine(Death());
         }
@@ -72,11 +95,28 @@ public class Movement : MonoBehaviour
         {
             render.flipX = false;
         }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Reset();
+        }
+        if(impulseSource == null)
+        {
+            Debug.Log("Source is Null");
+
+        }
+        if(CameraShake.instance == null)
+        {
+            Debug.Log("Instance is Null");
+        }
     }
 
-    void Reset()
+    public void Reset()
     {
-        vignette.intensity.value = 0.5f;
+        if (vignette != null)
+        {
+            vignette.intensity.value = 0.5f;
+        }
+        
         transform.position = spawnPoint;
         
         if (rb != null)
@@ -126,8 +166,9 @@ public class Movement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Danger") && !death)
         {
-
             StartCoroutine(Death());
+            CameraShake.instance.Shake(impulseSource);
+
         }
 
         if (collision.gameObject.CompareTag("MovingPlatform"))
@@ -145,14 +186,36 @@ public class Movement : MonoBehaviour
         }
     }
 
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("underground area"))
+        {
+            enterUnderground = true;
+        }
+    }
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.gameObject.CompareTag("underground area"))
+        {
+            enterUnderground = false;
+        }
+    }
+
     public void SetSpawn(Vector3 newPos)
     {
         spawnPoint = (newPos);
     }
 
+    public bool undergroundStatus()
+    {
+        return enterUnderground;
+    }
+
     private IEnumerator Death()
     {
         death = true;
+
+
 
         Instantiate(ps, transform.position, Quaternion.identity);
 
@@ -189,11 +252,17 @@ public class Movement : MonoBehaviour
             
         }
         Reset();
-        bar.increaseBar(-10.0f);
+        if (bar != null)
+        {
+            bar.increaseBar(-10.0f);
+        }
     }
 
     private void ContinousDegrade()
     {
-        bar.increaseBar(-0.2f * Time.deltaTime);
+        if (bar != null)
+        {
+            bar.increaseBar(-0.4f * Time.deltaTime);
+        }
     }
 }

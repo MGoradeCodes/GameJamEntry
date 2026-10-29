@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Intensity: 5
   m_LightVolumeIntensity: 0.1
   m_LightVolumeEnabled: 1
-  m_ApplyToSortingLayers: 0000000081fbe1e1118be4e9cf1ac40acf9ef972
+  m_ApplyToSortingLayers: 0000000081fbe1e1ef3da7fb45490dca118be4e9cf9ef972
   m_LightCookieSprite: {fileID: -6551416476856847632, guid: f5c36b90b0ff95946bf6c77c3da2c342, type: 3}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -161,7 +161,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -370898159
-  m_SortingLayer: 2
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -6551416476856847632, guid: f5c36b90b0ff95946bf6c77c3da2c342, type: 3}
   m_Color: {r: 0.76037735, g: 0.88094324, b: 1, a: 1}
@@ -186,6 +186,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71cd2bb3a36b83a47b9184009bd3ae1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  offsetY: 3
+  divideFactor: 2
 --- !u!61 &9044935526368508236
 BoxCollider2D:
   m_ObjectHideFlags: 0
