@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -49,6 +50,11 @@ public class MentalStability : MonoBehaviour
         {
             targetValue += val;
             targetValue = Mathf.Clamp(targetValue, slider.minValue, slider.maxValue);
+        }
+        if (targetValue <= 0 && !NextLevel.isEnd)
+        {
+            NextLevel.isEnd = true;
+            level.LoadEndScreen();
         }
     }
 

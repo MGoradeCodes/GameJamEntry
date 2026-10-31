@@ -53,6 +53,14 @@ public class NextLevel : MonoBehaviour
             }
         }
     }
+    public void LoadEndScreen()
+    {
+        if (!isTransitioning)
+        {
+            isTransitioning = true;
+            StartCoroutine(LoadLevel(3));
+        }
+    }   
 
     public void TriggerNextLevel()
     {

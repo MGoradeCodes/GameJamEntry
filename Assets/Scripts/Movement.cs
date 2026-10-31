@@ -29,7 +29,6 @@ public class Movement : MonoBehaviour
 
     private Volume volume;
     private Vignette vignette;
-
     private float horizontalInput;
 
     private MentalStability bar; 
@@ -63,7 +62,6 @@ public class Movement : MonoBehaviour
         {
             spawnPoint = new Vector3(-2, -2, 0);
         }
-
         Debug.Log("Scene index: " + scene);
         Debug.Log("Spawn point: " + spawnPoint);
         bar = Object.FindAnyObjectByType<MentalStability>();
