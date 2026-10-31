@@ -1,9 +1,9 @@
 using System.Collections;
 using Unity.Cinemachine;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
@@ -23,6 +23,8 @@ public class Movement : MonoBehaviour
 
     private CinemachineImpulseSource impulseSource;
 
+    [SerializeField] private CinemachineImpulseSource destructSource;
+
     private Rigidbody2D rb;
 
     private Volume volume;
@@ -32,7 +34,10 @@ public class Movement : MonoBehaviour
 
     private MentalStability bar; 
 
-    private Vector3 spawnPoint;
+    private Vector3 spawnPoint ;
+
+    private bool lowStabilityShake;
+    private Coroutine shakeRoutine;
 
     private bool death;
 
@@ -41,30 +46,39 @@ public class Movement : MonoBehaviour
     private bool enterUnderground;
 
     private bool gameOver;
+    int scene;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         impulseSource = GetComponent<CinemachineImpulseSource>();
-        GameObject volumeObj = GameObject.Find("Global Volume"); 
+
+        scene = SceneManager.GetActiveScene().buildIndex;
+
+        if(scene == 1)
+        {
+            spawnPoint = new Vector3(-22, 1, 0);
+        }
+        else if(scene == 2)
+        {
+            spawnPoint = new Vector3(-2, -2, 0);
+        }
+
+        Debug.Log("Scene index: " + scene);
+        Debug.Log("Spawn point: " + spawnPoint);
+        bar = Object.FindAnyObjectByType<MentalStability>();
+
+        GameObject volumeObj = GameObject.Find("Global Volume");
+
         if (volumeObj != null)
         {
             volume = volumeObj.GetComponent<Volume>();
-        }
 
-        Debug.Log(spawnPoint);
-
-        bar = Object.FindAnyObjectByType<MentalStability>();
-
-        if (volume != null)
-        {
-            volume.profile.TryGet(out vignette);
-            if (vignette != null)
+            if (volume != null && volume.profile != null)
             {
-                vignette.intensity.value = 0.5f;
+                volume.profile.TryGet(out vignette);
             }
         }
-        
         Reset();
     }
 
@@ -108,6 +122,7 @@ public class Movement : MonoBehaviour
         {
             Debug.Log("Instance is Null");
         }
+        Debug.Log(CameraShake.instance == null);
     }
 
     public void Reset()
@@ -167,8 +182,8 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.CompareTag("Danger") && !death)
         {
             StartCoroutine(Death());
+            Debug.Log(CameraShake.instance == null);
             CameraShake.instance.Shake(impulseSource);
-
         }
 
         if (collision.gameObject.CompareTag("MovingPlatform"))
@@ -193,6 +208,7 @@ public class Movement : MonoBehaviour
             enterUnderground = true;
         }
     }
+    
     void OnTriggerExit2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("underground area"))
@@ -203,7 +219,7 @@ public class Movement : MonoBehaviour
 
     public void SetSpawn(Vector3 newPos)
     {
-        spawnPoint = (newPos);
+        spawnPoint = new Vector3(newPos.x, newPos.y, 0f);
     }
 
     public bool undergroundStatus()
@@ -230,8 +246,6 @@ public class Movement : MonoBehaviour
             rb.bodyType = RigidbodyType2D.Kinematic; 
         }
 
-        if (vignette == null) yield break;
-
         float startIntensity = vignette.intensity.value;
         float targetIntensity = startIntensity + 1.0f; 
         float duration = 2.0f; 
@@ -247,15 +261,12 @@ public class Movement : MonoBehaviour
             yield return null; 
         }
         vignette.intensity.value = targetIntensity;
-        if (gameOver)
-        {
-            
-        }
-        Reset();
         if (bar != null)
         {
             bar.increaseBar(-10.0f);
         }
+        Reset();
+
     }
 
     private void ContinousDegrade()
@@ -263,6 +274,27 @@ public class Movement : MonoBehaviour
         if (bar != null)
         {
             bar.increaseBar(-0.4f * Time.deltaTime);
+
+            if (bar.getBarValue() <= 50f && !lowStabilityShake)
+            {
+                CollapseState.instance.SetState(true);
+                lowStabilityShake = true;
+                shakeRoutine = StartCoroutine(ContinuousShake());
+            }
+            if(bar.getBarValue() > 50)
+            {
+                CollapseState.instance.SetState(false);
+            }
         }
     }
+    private IEnumerator ContinuousShake()
+{
+    while (true)
+    {
+        CameraShake.instance.Shake(impulseSource);
+
+        yield return new WaitForSeconds(0.8f);
+    }
+
+}
 }

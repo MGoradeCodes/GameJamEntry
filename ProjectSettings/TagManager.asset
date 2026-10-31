@@ -9,6 +9,7 @@ TagManager:
   - Memory Shard
   - Backpack
   - underground area
+  - Ticket
   layers:
   - Default
   - TransparentFX

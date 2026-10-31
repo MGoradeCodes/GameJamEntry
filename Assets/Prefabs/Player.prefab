@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3206339421180095354}
   - component: {fileID: 3932131033257359241}
   - component: {fileID: 3645502552223932114}
+  - component: {fileID: 8177338970956763928}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -190,9 +191,6 @@ MonoBehaviour:
   ps: {fileID: 6130144649369147416, guid: c9c256ffe31985f4cbffdf7230fb3057, type: 3}
   render: {fileID: 755968679937075442}
   animator: {fileID: 3645502552223932114}
-  volume: {fileID: 0}
-  bar: {fileID: 0}
-  spawnPoint: {x: -19, y: 3, z: 0}
 --- !u!58 &3206339421180095354
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -245,9 +243,7 @@ MonoBehaviour:
   holdDuration: 2.5
   ps: {fileID: 6130144649369147416, guid: b1d3f20a05eb986458baa814f1cd1131, type: 3}
   prompt: {fileID: 2410821013386692718}
-  bar: {fileID: 0}
   player: {fileID: 8858324499363667417}
-  ShardText: {fileID: 0}
 --- !u!95 &3645502552223932114
 Animator:
   serializedVersion: 7
@@ -270,6 +266,140 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8177338970956763928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 838455227490406192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ImpulseDefinition:
+    ImpulseChannel: 1
+    ImpulseShape: 3
+    CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.17128864
+        value: 0.6794474
+        inSlope: 1.4922397
+        outSlope: 1.4922397
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.3795477
+        value: 0.07168005
+        inSlope: 0.60913676
+        outSlope: 0.60913676
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.4744858
+        value: 0.6183359
+        inSlope: 2.110222
+        outSlope: 2.110222
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.6062944
+        value: 0.14773446
+        inSlope: 0.9642941
+        outSlope: 0.9642941
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.67397285
+        value: 0.3453829
+        inSlope: 5.67232
+        outSlope: 5.67232
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.716651
+        value: 0.55132574
+        inSlope: 2.7100592
+        outSlope: 2.7100592
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.878352
+        value: 0.24428457
+        inSlope: 1.6094841
+        outSlope: 1.6094841
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.42721176
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ImpulseDuration: 0.2
+    ImpulseType: 0
+    DissipationRate: 0.25
+    RawSignal: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    RepeatMode: 0
+    Randomize: 1
+    TimeEnvelope:
+      AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      AttackTime: 0
+      SustainTime: 0.2
+      DecayTime: 0.7
+      ScaleWithImpact: 1
+      HoldForever: 0
+    ImpactRadius: 100
+    DirectionMode: 0
+    DissipationMode: 2
+    DissipationDistance: 100
+    PropagationSpeed: 343
+  DefaultVelocity: {x: 0, y: -1, z: 0}
 --- !u!1 &1371752777175081516
 GameObject:
   m_ObjectHideFlags: 0

@@ -36,16 +36,29 @@ public class NextLevel : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    public static bool isEnd;
+
+    void Start()
+    {
+        isEnd = false;
+    }
+
     void Update()
     {
         if (player != null)
-        {
-            Debug.Log((player.position.x > levelEndX) + " Level End: " + levelEndX);
-            
+        {   
             if (!isTransitioning && player.position.x >= levelEndX)
             {
                 LoadNextLevel();
             }
+        }
+    }
+
+    public void TriggerNextLevel()
+    {
+        if (!isTransitioning)
+        {
+            LoadNextLevel();
         }
     }
 
@@ -90,16 +103,20 @@ public class NextLevel : MonoBehaviour
         {
             transition.Play("CrossFade_end", 0, 0f);
         }
-
-        if (currentBuildIndex == 0)
-        {
-            levelEndX = 86f;
-            if (playerMovement != null) playerMovement.SetSpawn(new Vector3(-19, 1, 0));
-        }
         if (currentBuildIndex == 1)
         {
-            levelEndX = 108.5f;
-            if (playerMovement != null) playerMovement.SetSpawn(new Vector3(0, 0, 0));
+            levelEndX = 86f;
+            if (playerMovement != null) playerMovement.SetSpawn(new Vector3(-22, 1, 0));
         }
+        if (currentBuildIndex == 2)
+        {
+            levelEndX = 176.0f;
+            if (playerMovement != null) playerMovement.SetSpawn(new Vector3(-2, -2, 0));
+        }
+        if (currentBuildIndex == 3)
+        {
+            isEnd  = true;
+        }
+
     }
 }

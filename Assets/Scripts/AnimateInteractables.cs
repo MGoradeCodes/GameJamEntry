@@ -1,9 +1,6 @@
-using System;
-using Mono.Cecil.Cil;
-using UnityEditor.Search;
 using UnityEngine;
 
-public class AnimateShard : MonoBehaviour
+public class AnimateInteractables : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private double height;
@@ -13,7 +10,7 @@ public class AnimateShard : MonoBehaviour
 
     [SerializeField] private float divideFactor;
     private float angle;
-    private double theta;
+    private float theta;
     private Vector3 newPos;
     void Start()
     {
@@ -23,7 +20,7 @@ public class AnimateShard : MonoBehaviour
     {
         angle += speed*Time.deltaTime;
         theta = angle;
-        height = Math.Sin(theta) / divideFactor;
+        height = Mathf.Sin(theta) / divideFactor;
         newPos = transform.position;
         newPos.y = (float)height + offsetY;
         transform.position = newPos;

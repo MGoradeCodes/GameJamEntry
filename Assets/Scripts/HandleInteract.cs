@@ -1,5 +1,7 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HandleInteract : MonoBehaviour
@@ -25,16 +27,35 @@ public class HandleInteract : MonoBehaviour
     private bool inRange;
     private bool backpack;
 
-    private static int shardCount = 0;
+    public static int shardCount = 0;
 
     private GameObject currentShard = null;
     private HandleBackpack currentBackpackScript = null;
+    private TicketManager currentTicketScript = null;
+
+    private bool ticket;
+
+    public static HandleInteract instance;
+
+    private GameObject shardTextObj;
+
+    public static bool isStart = true;
+
+    void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+
+        isStart = (SceneManager.GetActiveScene().buildIndex == 0);
+    }
 
     void Start()
     {
         bar = Object.FindAnyObjectByType<MentalStability>();
         
-        GameObject shardTextObj = GameObject.Find("ShardText");
+        shardTextObj = GameObject.Find("ShardCount");
         if (shardTextObj != null)
         {
             ShardText = shardTextObj.GetComponent<TextMeshProUGUI>();
@@ -46,12 +67,23 @@ public class HandleInteract : MonoBehaviour
             prompt.SetActive(false);
         }
 
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        if (currentSceneIndex != 0)
+        {
+            isStart = false;
+        }
+        else
+        {
+            bar.gameObject.SetActive(true);
+        }
+
         UpdateShardCountDisplay();
     }
 
     void Update()
     {
-        if (currentShard != null || (inRange && backpack))
+        Debug.Log("is Start? : " + isStart);
+        if (currentShard != null || (inRange && (backpack || ticket)))
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -78,11 +110,23 @@ public class HandleInteract : MonoBehaviour
         {
             ResetHolding();
         }
+
+        if (shardTextObj != null)
+        {
+            if (isStart || NextLevel.isEnd)
+            {
+                shardTextObj.SetActive(false);
+            }
+            else
+            {
+                shardTextObj.SetActive(true);
+            }
+        }
     }
 
     void OnInteractionComplete()
     {
-        if (currentShard != null)
+        if (currentShard != null && !backpack && !ticket)
         {
             shardCount++;
             UpdateShardCountDisplay(); 
@@ -110,8 +154,24 @@ public class HandleInteract : MonoBehaviour
             {
                 currentBackpackScript.TriggerBackpackAction();
             }
+            else
+            {
+                Debug.LogError("HandleInteract: Backpack detected, but HandleBackpack component is missing on the collider target!");
+            }
         }
-    
+
+        if (ticket)
+        {
+            if (currentTicketScript != null)
+            {
+                currentTicketScript.TriggerTicket();
+            }
+            else
+            {
+                Debug.LogError("HandleInteract: Ticket detected, but TicketManager component is missing on the collider target!");
+            }
+        }
+
         ResetHolding();
     }
 
@@ -139,6 +199,17 @@ public class HandleInteract : MonoBehaviour
             inRange = true;
             backpack = true;
             currentBackpackScript = collision.GetComponent<HandleBackpack>();
+            if (prompt != null) 
+            {
+                prompt.SetActive(true);
+            }
+        }
+        
+        if (collision.gameObject.CompareTag("Ticket"))
+        {
+            inRange = true;
+            ticket = true;
+            currentTicketScript = collision.GetComponent<TicketManager>();
             if (prompt != null) 
             {
                 prompt.SetActive(true);
@@ -174,6 +245,17 @@ public class HandleInteract : MonoBehaviour
             }
             ResetHolding();
         }
+        if (collision.gameObject.CompareTag("Ticket"))
+        {
+            inRange = false;
+            ticket = false;
+            currentTicketScript = null;
+            if (prompt != null) 
+            {
+                prompt.SetActive(false);
+            }
+            ResetHolding();
+        }
     }
 
     public void ShardCountIncrement(int val)
@@ -193,7 +275,7 @@ public class HandleInteract : MonoBehaviour
 
     private void UpdateShardCountDisplay()
     {
-        if (ShardText != null)
+        if (shardTextObj != null && ShardText != null)
         {
             ShardText.text = "Shard Count : " + shardCount;
         }
